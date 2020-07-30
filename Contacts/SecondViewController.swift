@@ -8,8 +8,11 @@
 
 import UIKit
 
+
+
 class SecondViewController : UIViewController, UITableViewDataSource{
-   
+    
+
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var labelTextName: UILabel!
@@ -29,16 +32,17 @@ class SecondViewController : UIViewController, UITableViewDataSource{
     //MARK: -INIT
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editContact))
+        
         view.backgroundColor = .cyan
         designAvatar()
         labelTextName.text = textName
         table.register(MyTableViewCell.nib(), forCellReuseIdentifier: MyTableViewCell.identifier)
         table.dataSource = self
-        
+    //MARK: -Edit delegate
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(handleDone))
     }
-    //MARK: -EDIT BUTTON
-    @objc func editContact(){
+    //MARK: -pass data BUTTON
+    @objc func handleDone(){
         let vc = storyboard?.instantiateViewController(withIdentifier: "editView") as! EditTableViewController
         vc.navigationItem.largeTitleDisplayMode = .never
         vc.name = textName
@@ -46,6 +50,7 @@ class SecondViewController : UIViewController, UITableViewDataSource{
         vc.position = textPosition
         vc.photo = imageAvatar
         vc.phone = textMobile
+       
         present(UINavigationController(rootViewController: vc),animated: true)
     }
     //MARK: -Custom avatar
@@ -54,7 +59,8 @@ class SecondViewController : UIViewController, UITableViewDataSource{
         imageView.layer.cornerRadius = imageView.frame.size.width/2
         imageView.layer.borderWidth = 1
     }
-    //MARK: -Delete contact
+    //MARK: -Handle edit segue
+    
     
     //MARK: -table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,6 +113,8 @@ extension SecondViewController:MyViewCellDelegate{
             print("\(title)")
     }
 }
+
+
 
 
 
