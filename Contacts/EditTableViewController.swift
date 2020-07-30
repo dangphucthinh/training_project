@@ -7,17 +7,21 @@
 //
 
 import UIKit
-
+protocol EditContactDelegate: AnyObject
+ {
+    func editContact(contact: Contacts)
+}
 class EditTableViewController: UITableViewController {
   
         //MARK:-Properties
-      
+    weak var delegate:EditContactDelegate?
         @IBOutlet weak var avatarImageView: UIImageView!
         @IBOutlet weak var nameTextField: UITextField!
         @IBOutlet weak var positionTextField: UITextField!
         @IBOutlet weak var emailTextField: UITextField!
         @IBOutlet weak var phoneTextField: UITextField!
-        var contact: Contacts?
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    var contact: Contacts?
 
         var name = String()
         var phone = String()
@@ -44,16 +48,10 @@ class EditTableViewController: UITableViewController {
         @objc func handleCancel(){
             self.dismiss(animated: true, completion: nil)
         }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "save"{
-            if let name = nameTextField.text,
-            let position = positionTextField.text,
-            let email = emailTextField.text,
-            let phone = phoneTextField.text {
-                self.contact = Contacts(name: name, position: position, email: email, phone: phone)
-            }
-        }
+        
+    @IBAction func saveDidButtonTouch(for segue: UIStoryboardSegue, sender: Any?){
+        self.contact = Contacts(name: self.nameTextField.text ?? "Default Name", position: self.positionTextField.text ?? "Default position", email: self.emailTextField.text ?? "Default email", phone: self.phoneTextField.text ?? "Default phone" )
+        delegate?.editContact(contact: contact!)
     }
     
 }

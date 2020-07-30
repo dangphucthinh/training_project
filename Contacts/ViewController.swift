@@ -9,55 +9,40 @@
 import UIKit
 
 class ViewController: UIViewController {
-    func updateContacts(_ contact: Contacts) {
-    }
-    
-
     @IBOutlet var TableView: UITableView!
     
     var contactsItem : [Contacts]  = [Contacts]()
-//    let names = ["Oscar",
-//                     "Dang",
-//                     "Phuc",
-//                     "Thinh"
-//        ]
     var aphabel = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-    
-
-
-            
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             createPersonList()
             TableView.delegate = self
             TableView.dataSource = self
-            //MARK:--BUTTON ADD
+            //MARK:--BUTTON ADD delegate
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAddContact))
         }
     @objc func handleAddContact(){
         let vc = storyboard?.instantiateViewController(withIdentifier: "addView") as! AddViewController
-//        vc.delegate = self
+        vc.delegate = self
         vc.navigationItem.largeTitleDisplayMode = .never
         present(UINavigationController(rootViewController: vc),animated: true)
     }
+    //MARK: -add segue contacts
+//       override func viewDidAppear(_ animated: Bool) {
+//           super.viewDidAppear(true)
+//           TableView.reloadData()
+//       }
+//
+//       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//           if let nav = segue.destination as? UINavigationController, let AddVC = nav.topViewController as? AddViewController {
+//               AddVC.delegate = self
+//           }
+//       }
     
-    @IBAction func backToContactsTbV(segue: UIStoryboardSegue) {
-        print("Cancel")
-    }
-    @IBAction func savePersonDetail(segue: UIStoryboardSegue) {
-        print("Done")
-        if let addPersonTbVController = segue.source as? AddViewController {
-            if let person = addPersonTbVController.contact {
-                self.contactsItem.append(person)
-                // update TBV
-                let indexPath = IndexPath(row: self.contactsItem.count - 1, section: 0)
-                self.TableView.insertRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-            }
-        }
-    }
-}
 
-        
+}
+       
         //MARK: -PASS DATA FROM VIEWCONTROLLER TO SECONDVIEWCONTROLLER
     extension ViewController:UITableViewDelegate{
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -87,16 +72,6 @@ class ViewController: UIViewController {
         
         //MARK: -SHOW NUMBER OF ROW IN SECTION
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//            var string = String()
-//             var group:[String] = []
-//                for i in personsItem{
-//                    string = (String)(i.name[i.name.startIndex])
-//
-//                    if !group.contains(string){
-//                        group.append(string)
-//                    }
-//
-//                }
             return contactsItem.count;
         }
         
@@ -105,7 +80,6 @@ class ViewController: UIViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactTableViewCell
             let currentPerson = contactsItem[indexPath.row]
             cell.contact = currentPerson
-           // cell.textLabel?.text = currentPerson
             return cell
         }
         
@@ -124,15 +98,25 @@ class ViewController: UIViewController {
 }
 
 // MARK: - AddContactDelegate
-//extension ViewController: AddContactDelegate {
-//    func addContact(contact: Contacts) {
-//            self.dismiss(animated: true) {
-//            self.contactsItem.append(contact)
-//            self.TableView.reloadData()
-//                print(self.contactsItem)
-//        }
-//    }
-//}
+extension ViewController: AddContactDelegate {
+    func addContact(contact: Contacts) {
+            self.dismiss(animated: true) {
+            self.contactsItem.append(contact)
+            self.TableView.reloadData()
+                print(self.contactsItem)
+        }
+    }
+}
+
+extension ViewController: EditContactDelegate{
+    func editContact(contact: Contacts) {
+        self.dismiss(animated: true){
+            self.addContact(contact: contact)
+            self.TableView.reloadData()
+        }
+    }
+}
+
 
 
 
