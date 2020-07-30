@@ -50,28 +50,40 @@ class AddViewController: UITableViewController, UINavigationControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
  
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
          //Do any additional setup after loading the view.
     }
     //MARK: -Seque
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "save" {
-            self.contact = Contacts(name: self.textFieldName.text ?? "Default Name", position: self.textFieldPosition.text ?? "Default position", email: self.textFieldEmail.text ?? "Default email", phone: self.textFieldMobile.text ?? "Default phone" )
-        }
-    }
+    
+//     @IBAction func doneButtonDidTouch(segue: UIStoryboardSegue) {
+//            print("Done")
+//    //        if let addPersonTbVController = segue.source as? AddViewController {
+//    //            if let person = addPersonTbVController.contact {
+//    //                self.contactsItem.append(person)
+//    //            }
+//    //        }
+//            contact.name = textFieldName.text!
+//            contact.email = textFieldEmail.text!
+//            contact.phone = textFieldMobile.text!
+//            contact.position = textFieldPosition.text!
+//            delegate?.addContact(contact)
+//            self.navigationController?.dismiss(animated: true, completion: nil)
+//        }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "save" {
+//            self.contact = Contacts(name: self.textFieldName.text ?? "Default Name", position: self.textFieldPosition.text ?? "Default position", email: self.textFieldEmail.text ?? "Default email", phone: self.textFieldMobile.text ?? "Default phone" )
+//        }
+//    }
     
     //MARK: --HANDLE FUNCTION Delegate
-//    @objc func handleDone(){
-//        self.contact = Contacts(name: self.textFieldName.text ?? "Default Name", position: self.textFieldPosition.text ?? "Default position", email: self.textFieldEmail.text ?? "Default email", phone: self.textFieldMobile.text ?? "Default phone" )
-//      delegate?.contact(contact)
-//    }
-//
-//
-//
-//
-//    @objc func handleCancel(){
-//        self.dismiss(animated: true, completion: nil)
-//    }
+    @objc func handleDone(){
+        self.contact = Contacts(name: self.textFieldName.text ?? "Default Name", position: self.textFieldPosition.text ?? "Default position", email: self.textFieldEmail.text ?? "Default email", phone: self.textFieldMobile.text ?? "Default phone" )
+        delegate?.addContact(contact: contact!)
+    }
+
+    @objc func handleCancel(){
+        self.dismiss(animated: true, completion: nil)
+    }
 }
     
