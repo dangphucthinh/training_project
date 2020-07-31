@@ -50,7 +50,7 @@ class SecondViewController : UIViewController, UITableViewDataSource{
         vc.position = textPosition
         vc.photo = imageAvatar
         vc.phone = textMobile
-       
+        vc.delegate = self
         present(UINavigationController(rootViewController: vc),animated: true)
     }
     //MARK: -Custom avatar
@@ -114,7 +114,16 @@ extension SecondViewController:MyViewCellDelegate{
     }
 }
 
-
-
+extension SecondViewController: EditContactDelegate{
+    func editContact(contact: Contacts) {
+        self.dismiss(animated: true){
+            self.labelTextName.text = contact.name
+            self.textMobile = contact.phone
+            self.textPosition = contact.position
+            self.textEmail = contact.email
+            self.table.reloadData()
+        }
+    }
+}
 
 
