@@ -13,7 +13,12 @@ class ViewController: UIViewController {
     
     var contactsItem : [Contacts]  = [Contacts]()
     var aphabel = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-        
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        TableView.reloadData()
+    }
+    
         override func viewDidLoad() {
             super.viewDidLoad()
             createPersonList()
@@ -108,14 +113,7 @@ extension ViewController: AddContactDelegate {
     }
 }
 
-extension ViewController: EditContactDelegate{
-    func editContact(contact: Contacts) {
-        self.dismiss(animated: true){
-            self.addContact(contact: contact)
-            self.TableView.reloadData()
-        }
-    }
-}
+
 
 
 
