@@ -602,17 +602,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="a13-W3-TMu">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="5nH-Uc-o5w">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X53-Zi-Gjh">
-                                <rect key="frame" x="340" y="5" width="54" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="saveDidButtonTouch" destination="f2i-2Q-1UL" eventType="touchUpInside" id="rdn-6u-gmY"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="avatarImageView" destination="5Gh-5c-UPX" id="YjR-Xq-az3"/>
@@ -620,7 +609,6 @@
                         <outlet property="nameTextField" destination="ARN-7E-Z6e" id="SI4-uc-Kz9"/>
                         <outlet property="phoneTextField" destination="7wP-8E-kqF" id="CBm-5K-FSb"/>
                         <outlet property="positionTextField" destination="oDc-Fa-uuz" id="N4O-xJ-elU"/>
-                        <outlet property="saveButton" destination="5nH-Uc-o5w" id="maz-CT-Pr4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o3h-3w-2SI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
