@@ -33,6 +33,7 @@ class EditTableViewController: UITableViewController {
             super.viewDidLoad()
             // Do any additional setup after loading the view.
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
+            self.navigationItem.rightBarButtonItem =  UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(handleDone))
             showInfo()
             
         }
@@ -49,7 +50,8 @@ class EditTableViewController: UITableViewController {
             self.dismiss(animated: true, completion: nil)
         }
         
-    @IBAction func saveDidButtonTouch(for segue: UIStoryboardSegue, sender: Any?){
+        
+        @objc func handleDone(){
         self.contact = Contacts(name: self.nameTextField.text ?? "Default Name", position: self.positionTextField.text ?? "Default position", email: self.emailTextField.text ?? "Default email", phone: self.phoneTextField.text ?? "Default phone" )
         delegate?.editContact(contact: contact!)
     }
