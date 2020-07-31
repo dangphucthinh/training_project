@@ -23,7 +23,25 @@ class AddViewController: UITableViewController, UINavigationControllerDelegate, 
     @IBOutlet weak var textFieldPosition: UITextField!
     @IBOutlet weak var textFieldEmail: UITextField!
     var contact:Contacts?
-//    //MARK: --IMPORT AVATAR
+    //MARK: --INIT
+       override func viewDidLoad() {
+           super.viewDidLoad()
+    
+           self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
+           self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
+            //Do any additional setup after loading the view.
+       }
+    
+    //MARK: --HANDLE FUNCTION Delegate
+    @objc func handleDone(){
+        self.contact = Contacts(name: self.textFieldName.text ?? "Default Name", position: self.textFieldPosition.text ?? "Default position", email: self.textFieldEmail.text ?? "Default email", phone: self.textFieldMobile.text ?? "Default phone" )
+        delegate?.addContact(contact: contact!)
+    }
+
+    @objc func handleCancel(){
+        self.dismiss(animated: true, completion: nil)
+    }
+    //MARK: --IMPORT AVATAR
 //     @IBAction func importPhoto(_ sender: Any) {
 //        let image = UIImagePickerController()
 //        image.allowsEditing = true
@@ -46,14 +64,7 @@ class AddViewController: UITableViewController, UINavigationControllerDelegate, 
 //        }
 //         picker.dismiss(animated: true, completion: nil)
 //    }
-    //MARK: --INIT
-    override func viewDidLoad() {
-        super.viewDidLoad()
- 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
-         //Do any additional setup after loading the view.
-    }
+    
     //MARK: -Seque
     
 //     @IBAction func doneButtonDidTouch(segue: UIStoryboardSegue) {
@@ -76,14 +87,5 @@ class AddViewController: UITableViewController, UINavigationControllerDelegate, 
 //        }
 //    }
     
-    //MARK: --HANDLE FUNCTION Delegate
-    @objc func handleDone(){
-        self.contact = Contacts(name: self.textFieldName.text ?? "Default Name", position: self.textFieldPosition.text ?? "Default position", email: self.textFieldEmail.text ?? "Default email", phone: self.textFieldMobile.text ?? "Default phone" )
-        delegate?.addContact(contact: contact!)
-    }
-
-    @objc func handleCancel(){
-        self.dismiss(animated: true, completion: nil)
-    }
 }
     
